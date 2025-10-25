@@ -4,6 +4,8 @@ from flask_cors import CORS
 import sqlite3
 from datetime import datetime
 
+BACKEND_URL = os.environ.get("BACKEND_URL", "http://localhost:5000")
+
 # --- Configuration ---
 UPLOAD_FOLDER = os.path.join(os.path.dirname(
     os.path.abspath(__file__)), "uploads")
@@ -61,7 +63,7 @@ def get_uploads():
             "author": u["author"],
             "description": u["description"],
             "filename": u["filename"],
-            "previewUrl": f"http://localhost:5000/uploads/{u['filename']}",
+            "previewUrl": f"{BACKEND_URL}/uploads/{u['filename']}",
             "isVideo": bool(u["is_video"]),
             "createdAt": u["created_at"]
         })
@@ -101,7 +103,7 @@ def upload_file():
         "author": author,
         "description": description,
         "filename": filename,
-        "previewUrl": f"http://localhost:5000/uploads/{filename}",
+        "previewUrl": f"{BACKEND_URL}/uploads/{filename}",
         "isVideo": is_video,
         "createdAt": created_at
     })
